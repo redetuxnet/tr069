@@ -12,14 +12,13 @@ const daily = Date.now(86400000);
 // Unique inform offset per device for better load distribution
 const informTime = daily % 86400000;
 
-declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: username});
-declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", {value: daily}, {value: password});
-declare("InternetGatewayDevice.ManagementServer.PeriodicInformEnable", {value: daily}, {value: true});
-declare("InternetGatewayDevice.ManagementServer.PeriodicInformInterval", {value: daily}, {value: informInterval});
-declare("InternetGatewayDevice.ManagementServer.PeriodicInformTime", {value: daily}, {value: informTime});
-declare("VirtualParameters.MACAddress", {value: daily}, {value: informInterval});
-declare("Device.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: username});
-declare("Device.ManagementServer.ConnectionRequestPassword", {value: daily}, {value: password});
-declare("Device.ManagementServer.PeriodicInformEnable", {value: daily}, {value: true});
-declare("Device.ManagementServer.PeriodicInformInterval", {value: daily}, {value: informInterval});
-declare("Device.ManagementServer.PeriodicInformTime", {value: daily}, {value: informTime});
+//declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: username});
+//declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", {value: daily}, {value: password});
+//declare("InternetGatewayDevice.ManagementServer.PeriodicInformEnable", {value: daily}, {value: true});
+//declare("InternetGatewayDevice.ManagementServer.PeriodicInformInterval", {value: daily}, {value: informInterval});
+//declare("InternetGatewayDevice.ManagementServer.PeriodicInformTime", {value: daily}, {value: informTime});
+//declare("Device.ManagementServer.ConnectionRequestUsername", {value: daily}, {value: username});
+//declare("Device.ManagementServer.ConnectionRequestPassword", {value: daily}, {value: password});
+//declare("Device.ManagementServer.PeriodicInformEnable", {value: daily}, {value: true});
+//declare("Device.ManagementServer.PeriodicInformInterval", {value: daily}, {value: informInterval});
+//declare("Device.ManagementServer.PeriodicInformTime", {value: daily}, {value: informTime});
