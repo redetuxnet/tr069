@@ -23,7 +23,7 @@ function cliente(args, callback){
             let macfinal = data[0].mac_addr.split(':')
             let nome = data[0].nome.split(' ')
             let ssid = nome[0] + ssid_nome_provedor + macfinal[4] + macfinal[5]
-            let ssid5g = nome[0] + ssid_nome_provedor + macfinal[4] + macfinal[5] + '_5G                                                                                                             '
+            let ssid5g = nome[0] + ssid_nome_provedor + macfinal[4] + macfinal[5] + '_5G'
             let password = senha_nome_provedor+data[0].password
             let result = {
                 login: data[0].login,
