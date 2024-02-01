@@ -122,16 +122,6 @@ else if (fabricante == 'Cudy') {
 }
 //Condicional para roteador Huawei (Testado apenas em roteadores AX2)
 else if (fabricante == "Huawei Technologies Co., Ltd.") {
-    let productclass = declare("DeviceID.ProductClass", { value: 1 }).value[0];
-    if (productclass == 'EG8120L' || productclass == 'HG8120H' || productclass == 'EG8120L'){
-        let line_user = declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }).value[0];	
-        log (line_user)
-        if (line_user == "" || line_user == "21202" || line_user == "10"){
-            let maclan = declare("InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.1.MACAddress", { value: 1 }).value[0];
-            configont(maclan)
-        }
-        
-    }else{
     let ppp = declare("InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Username", { value: 1 }).value[0];
     if (ppp == default_user_pppoe) {
         let para_ssid24 = "InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID";
@@ -142,7 +132,6 @@ else if (fabricante == "Huawei Technologies Co., Ltd.") {
         let para_ppp_pass = "InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Password";
         let maclan = declare("InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.1.MACAddress", { value: 1 }).value[0];
         configRoteador(para_ssid24,para_ssid5,para_key24,para_key5,para_ppp_user,para_ppp_pass,maclan)
-    }
     }
 }
 //Condicional para roteador Dlink (Testado apenas em roteadores DIR-841)
