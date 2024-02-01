@@ -1,0 +1,62 @@
+const hourly = Date.now(120000);
+const now = Date.now();
+
+
+// Obtem o modelo do roteador
+let fabricante = declare("DeviceID.Manufacturer", { value: 1 }).value[0];
+
+// Variável para definir o padrão do pppoe que a empresa usara dentro do preset do roteador
+let default_user_pppoe = 'tr069';
+
+if (fabricante == 'TP-Link') {
+    let versao = declare("Device.DeviceInfo.HardwareVersion", { value: 1 }).value[0];
+   if (versao == 'EC225-G5 1.0'){
+        declare("Device.WiFi.Radio.2.Channel", { value: 1 }, { value: 36 });
+        declare("Device.WiFi.Radio.1.Channel", { value: 1 }, { value: 1 });
+        declare("Device.WiFi.Radio.1.AutoChannelEnable", { value: 1 }, { value: false });
+        declare("Device.WiFi.Radio.2.AutoChannelEnable", { value: 1 }, { value: false });
+    	let ppp = declare("Device.PPP.Interface.1.Username", { value: 1 }).value[0];
+      	if (ppp == default_user_pppoe) {
+        	let para_ssid24 = "Device.WiFi.SSID.1.SSID";
+        	let para_ssid5 = "Device.WiFi.SSID.3.SSID";
+        	let para_key24 = "Device.WiFi.AccessPoint.1.Security.KeyPassphrase";
+        	let para_key5 = "Device.WiFi.AccessPoint.3.Security.KeyPassphrase";
+        	let para_ppp_user = "Device.PPP.Interface.1.Username";
+       	    let para_ppp_pass = "Device.PPP.Interface.1.Password";
+       	    let maclan = declare("Device.Ethernet.Link.1.MACAddress", { value: 1 }).value[0];
+        	configRoteador(para_ssid24,para_ssid5,para_key24,para_key5,para_ppp_user,para_ppp_pass,maclan)
+    	}
+    }
+    
+}
+
+
+// Função para consultar dados do ERP e seta os parametros no roteador
+function configRoteador(para_ssid24,para_ssid5,para_key24,para_key5,para_ppp_user,para_ppp_pass,para_mac_lan){
+    let maclan = para_mac_lan;
+    let macwan = declare("VirtualParameters.MAC", { value: 1 }).value[0];
+    let respmacwan = ext("getMacwan", "getMacwan", macwan.toUpperCase())
+    if (respmacwan.status != 404) {
+        declare(para_ppp_pass, { value: 1 }, { value: respmacwan.senha });
+        declare(para_ppp_user, { value: 1 }, { value: respmacwan.login });
+        declare(para_ssid24, { value: 1 }, { value: respmacwan.ssid });
+        declare(para_ssid5, { value: 1 }, { value: respmacwan.ssid5g });
+        declare(para_key24, { value: 1 }, { value: respmacwan.password });
+        declare(para_key5, { value: 1 }, { value: respmacwan.password });
+        declare("Tags." + respmacwan.login, null, { value: true });
+        declare("VirtualParameters.ppp_username", { path: now, value: now });
+        commit()
+    } else {
+        let resplan = ext("getClientes", "getCliente", maclan.toUpperCase());
+        declare(para_ppp_pass, { value: 1 }, { value: resplan.ppppass });
+        declare(para_ppp_user, { value: 1 }, { value: resplan.ppp });
+        declare(para_ssid24, { value: 1 }, { value: resplan.ssid });
+        declare(para_ssid5, { value: 1 }, { value: resplan.ssid5g });
+        declare(para_key24, { value: 1 }, { value: resplan.password });
+        declare(para_key5, { value: 1 }, { value: resplan.password });
+        declare("Tags." + resplan.ppp, null, { value: true });
+        declare("VirtualParameters.ppp_username", { path: now, value: now });
+        commit()
+    }
+}
+
