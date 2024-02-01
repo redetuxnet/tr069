@@ -1,0 +1,55 @@
+let m = 0;
+let ppp = declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.2.TotalAssociations", {value: Date.now()}); 
+let ppp2 = declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.3.TotalAssociations", {value: Date.now()});
+let ppp3 = declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.5.TotalAssociations", {value: Date.now()});
+    
+
+if (ppp.size) { 
+ 
+  for (let p of ppp) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} else if (ppp2.size) { 
+ 
+  for (let p of ppp2) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+}
+else if (ppp3.size) { 
+ 
+  for (let p of ppp3) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+}
+
+return {writable: false, value: [m, "xsd:string"]};
+
+
+ 
