@@ -1,0 +1,101 @@
+let m = "null";
+let ppp = declare("InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.Username", {value: Date.now()}); 
+let ppp2 = declare("InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.2.Username", {value: Date.now()});
+let ppp3 = declare("InternetGatewayDevice.WANDevice.1.WANConnectionDevice.5.WANPPPConnection.1.Username", {value: Date.now()});
+let ppp4 = declare("InternetGatewayDevice.WANDevice.1.WANConnectionDevice.4.WANPPPConnection.1.Username", {value: Date.now()});
+let ppp5 = declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", {value: Date.now()});
+let ppp6 = declare("InternetGatewayDevice.WANDevice.3.WANConnectionDevice.5.WANPPPConnection.1.Username", {value: Date.now()});
+
+
+
+if (ppp.size) { 
+ 
+  for (let p of ppp) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} else if (ppp2.size) { 
+ 
+  for (let p of ppp2) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+}
+else if (ppp3.size) { 
+ 
+  for (let p of ppp3) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} else if (ppp4.size) { 
+ 
+  for (let p of ppp4) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} else if (ppp5.size) { 
+ 
+  for (let p of ppp5) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} else if (ppp6.size) { 
+ 
+  for (let p of ppp6) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+}
+
+return {writable: false, value: [m, "xsd:string"]};
+
+
+ 
