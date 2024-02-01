@@ -27,10 +27,6 @@ Como também é necessario acesso ao banco de dados do sistema no modo leitura, 
 ### Instalação GenieACS
 O passo a passo de instalação está disponivel em https://blog.remontti.com.br/6001, os demais passos abaixo só devem ser feitas após a instalação.
 
-## Instalação pm2
-
-    npm install -g pm2 
-
 ## Instalando Back-end do projeto
 Clone o projeto 
     
@@ -95,10 +91,22 @@ A senha do wifi do roteador é gerado usando a seguinte moneclatura NOMEPROVEDOR
     ## nome do provedor para a Senha EX: let senha_nome_provedor = 'Provedor'
     let senha_nome_provedor = ' '
     
-Agora precisamos rodar a aplicação para isso é simples, acesse o diretorio bin e execute com o comando pm2 start
-
-    cd /opt/tr069/bin
-    pm2 start server.js
+Agora precisamos rodar a aplicação para isso é simples. vamos criar um novo serviço no linux para a execução
+    vi /etc/systemd/system/api-genieacs.service
+    ## Copie o script abaixo e coloque no editor que foi aberto
+    [Unit]
+    Description=API GENIEACS HUB
+    After=network.target
+    [Service]
+    User=genieacs
+    WorkingDirectory=/opt/tr069/bin
+    ExecStart=/usr/bin/node server.js
+    [Install]
+    WantedBy=default.target
+    ## Habilite o servico e start logo em seguida
+    systemctl enable api-genieacs.service
+    systemctl start api-genieacs.service
+    
 A porta padrão da API é 3001
 
 Após a conclusão do Back-end da aplicação, iremos configurar os parametros dentro do genieACS
