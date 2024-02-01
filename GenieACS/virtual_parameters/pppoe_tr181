@@ -1,0 +1,24 @@
+let m = "null";
+let ppp7 = declare("Device.PPP.Interface.1.Username", {value: Date.now()});
+
+
+if (ppp7.size) { 
+ 
+  for (let p of ppp7) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} 
+
+return {writable: false, value: [m, "xsd:string"]};
+
+
+ 
