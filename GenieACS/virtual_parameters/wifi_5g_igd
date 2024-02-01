@@ -1,0 +1,46 @@
+let m = "null";
+if (args[1].value){
+  m = args[1].value[0]
+  declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.2.SSID", null, { value: m});
+  declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.3.SSID", null, { value: m});
+}
+else{
+let ssid1 = declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.2.SSID", {value: Date.now()});
+let ssid2 = declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.3.SSID", {value: Date.now()});
+
+
+if (ssid1.size) { 
+ 
+  for (let p of ssid1) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} else if (ssid2.size) { 
+ 
+  for (let p of ssid2) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} 
+}
+
+return {writable: true, value: [m, "xsd:string"]};
+
+
+ 
