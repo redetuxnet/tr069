@@ -92,6 +92,7 @@ A senha do wifi do roteador é gerado usando a seguinte moneclatura NOMEPROVEDOR
     let senha_nome_provedor = ' '
     
 Agora precisamos rodar a aplicação para isso é simples. vamos criar um novo serviço no linux para a execução
+
     vi /etc/systemd/system/api-genieacs.service
     ## Copie o script abaixo e coloque no editor que foi aberto
     [Unit]
