@@ -120,7 +120,7 @@ Nessa parte iremos criar alguns parametros dentro do sistema para o funcionament
 3. Crie um novo usuario para o ser utilizado na configuração do roteador e outro pra o Hubsoft utilizar.</br> admin -> users (pode ser como admin "Não recomendavel")
 
 ### Editando os Provisions
-Nessa etapa iremos editar dois provisions dentro do sistema do GenieACS. </br>
+Nessa etapa iremos criar dois provisions e editar dois dentro do sistema do GenieACS. </br>
 Os provisions são responsáveis por executar os comandos de provisionamento, ou seja, podemos realizar as chamadas para alterar os parâmetros das cpe de forma automática e declarar os parâmetros para o sistema Genieacs consultar.</br>
 Iremos editar duas provisions que são a default e a inform.</br>
 O primeiro que iremos editar é o provision default
@@ -136,6 +136,36 @@ O segundo que iremos editar é o provision inform
     /opt/tr069/GenieACS/provisions/inform
     ## Dentro do GenieACS navegue até admin -> provisions
     Clique em show no provision com o nome inform e apague tudo que está dentro e cole o contéudo copiado do arquivo default do projeto
+
+O primeiro que vamos criar é o provision preset_tr098
+
+    ## Copie as informações que está no projeto dentro da pasta 
+    /opt/tr069/GenieACS/provisions/preset_tr098
+    ## Dentro do GenieACS navegue até admin -> provisions
+    Clique em new no campo scritp coloque o codigo e no nome name coloque preset_tr098 e salve
+    ## Após criar o provision vamos no Campo presets, onde vamos acionar nossos provisions admin -> presets
+    Clique em new e prencha os dados conforme abaixo
+        name: preset_tr098  
+        channel: preset_tr098
+        Weigth: 0
+        Events: 1 BOOT (Recomendado - vai acionar quando o roteador reiniciar) ou Registered (vai acionar quando roteador conectar a primeira vez no genieacs)
+        Precondition: VirtualParameters.pppoe_tr098 = "tr069"
+        Provision: preset_tr098
+        
+O primeiro que vamos criar é o provision preset_tr181
+
+    ## Copie as informações que está no projeto dentro da pasta 
+    /opt/tr069/GenieACS/provisions/ppreset_tr181
+    ## Dentro do GenieACS navegue até admin -> provisions
+    Clique em new no campo scritp coloque o codigo e no nome name coloque preset_tr098 e salve
+    ## Após criar o provision vamos no Campo presets, onde vamos acionar nossos provisions admin -> presets
+    Clique em new e prencha os dados conforme abaixo
+        name: preset_tr181  
+        channel: preset_tr181
+        Weigth: 0
+        Events: 1 BOOT (Recomendado - vai acionar quando o roteador reiniciar) ou Registered (vai acionar quando roteador conectar a primeira vez no genieacs)
+        Precondition: VirtualParameters.pppoe_tr181 = "tr069"
+        Provision: preset_tr181
 
 **Atenção** dentro do provision default existe uma variavel chamada 'default_user_pppoe' que é responsavel por identificar o pppoe padrão do preset, por padrão se encontra com o nome tr069 (que pode ser alterada caso julge necesssario), de qualquer forma esse usuario pppoe deve ser usado no roteador, para que o script identifique que esse roteador não está configurado. 
 
