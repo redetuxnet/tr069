@@ -31,7 +31,7 @@ O passo a passo de instalação está disponivel em https://blog.remontti.com.br
 Clone o projeto 
     
     cd /opt
-    git clone URL_DO_PROJETO
+    git clone https://github.com/jeffsoncavalcante/tr069.git
     cd /tr069
     npm install
     
