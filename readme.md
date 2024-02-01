@@ -198,6 +198,8 @@ O quarto Virtual Parametro que iremos criar é o ppp_username
 2. no campo name coloque o ppp_username
 3. Copie o script dentro do arquivo ppp_username no diretório informado acima e cole dentro do campo Script no GenieACS
 
+E continue criandos todos os demais Virtual Parametros que estão dentro da Pasta Virutal_parameters
+
 ## Configuração GenieACS no Hubsoft
 Dentro da wiki do hubsoft se encontra o precedimento para adicionar a integração do lado do ERP com o GenieACS e como definir os parametros customizados para cada tipo de roteador.</br>
 Documentação para integração:
