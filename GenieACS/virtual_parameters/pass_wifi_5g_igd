@@ -1,0 +1,42 @@
+let m = "";
+if (args[1].value){
+  m = args[1].value[0]
+  declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.2.X_TP_PreSharedKey", null, { value: m});
+  declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.X_TP_PreSharedKey", null, { value: m});
+}
+else{
+let ssid1 = declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.2.X_TP_PreSharedKey", {value: Date.now()});
+let ssid2 = declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.3.X_TP_PreSharedKey", {value: Date.now()});
+
+
+if (ssid1.size) { 
+ 
+  for (let p of ssid1) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} else if (ssid2.size) { 
+ 
+  for (let p of ssid2) { 
+ 
+    if (p.value[0]) { 
+ 
+      m = p.value[0]; 
+ 
+      break; 
+ 
+    } 
+ 
+  }   
+ 
+} 
+}
+return {writable: true, value: [m, "xsd:string"]};
