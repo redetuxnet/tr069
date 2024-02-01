@@ -122,7 +122,7 @@ Nessa parte iremos criar alguns parametros dentro do sistema para o funcionament
 ### Editando os Provisions
 Nessa etapa iremos criar dois provisions e editar dois dentro do sistema do GenieACS. </br>
 Os provisions são responsáveis por executar os comandos de provisionamento, ou seja, podemos realizar as chamadas para alterar os parâmetros das cpe de forma automática e declarar os parâmetros para o sistema Genieacs consultar.</br>
-Iremos editar duas provisions que são a default e a inform.</br>
+Iremos editar duas provisions que são a default, inform e criar os preset_tr098 e preset_tr181</br>
 O primeiro que iremos editar é o provision default
 
     ## Copie as informações que está no projeto dentro da pasta 
