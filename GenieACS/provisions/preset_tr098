@@ -11,14 +11,6 @@ let default_user_pppoe = 'tr069';
 //Condicional para roteador ZTE (Testado apenas em roteadores H199A e H198A)
 if (fabricante == 'ZTE') {
     let versao = declare("DeviceID.ProductClass", { value: 1 }).value[0];
-    if(versao == 'F612'){
-      let line_user = declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }).value[0];	
-        log (line_user)
-        if (line_user == "" || line_user == "21202" || line_user == "10" ){
-            let maclan = declare("InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.1.MACAddress", { value: 1 }).value[0];
-            configontzte(maclan)
-        }
-    }else{
     	let ppp = declare("InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.2.Username", { value: 1 }).value[0];
     	if (ppp == default_user_pppoe) {
         	let para_ssid24 = "InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID";
@@ -30,7 +22,6 @@ if (fabricante == 'ZTE') {
         	let maclan = declare("InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.1.MACAddress", { value: 1 }).value[0];
         	configRoteador(para_ssid24,para_ssid5,para_key24,para_key5,para_ppp_user,para_ppp_pass,maclan)
      	}
-    }  
 }
 //Condicional para roteador TP-LINK (Testado apenas em roteadores ac750 v5, ac1200, AX1800)
 else if (fabricante == 'TP-Link') {
@@ -202,134 +193,3 @@ function configRoteador(para_ssid24,para_ssid5,para_key24,para_key5,para_ppp_use
     }
 }
 
-function configont (para_mac_lan){
-    let maclan = para_mac_lan;
-    let respmacontstfc = ext("getMacontstfc", "getMacontstfc", maclan.toUpperCase());
-    if (respmacontstfc.status != 404) {
-        if(respmacontstfc.numero == null){
-            let respmacont = ext("getMacont", "getMacont", maclan.toUpperCase())
-            log(respmacont.numero)
-            let senha = "null"
-            if (respmacont.dominio == "vivasim.redepabx.com.br"){
-            	senha = "W3X4Ezv6Ae35oJZnP"
-            }else if(respmacont.dominio == "flordosertao.redepabx.com.br"){
-            	senha = "9T^Z!G*$6pDpE*hjvEAy"
-            }else if(respmacont.dominio == "ipamarelo.redepabx.com.br"){
-            	senha = "IpAm#2023@tux"
-            }
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }, { value: respmacont.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword", { value: 1 }, { value: senha});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxy", { value: 1 }, { value: "186.195.15.138"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxyPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServer", { value: 1 }, { value: "186.195.15.138"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer", { value: 1 }, { value: respmacont.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryOutboundProxy", { value: 1 }, { value: "186.195.15.138"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryOutboundProxyPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryProxyServer", { value: 1 }, { value: "186.195.15.138"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryProxyServerPort", { value: 1 }, { value: "5060"});
-            declare("Tags." + respmacont.numero, null, { value: true });
-            commit()
-        }else{
-            log(respmacontstfc.numero)
-            
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }, { value: respmacontstfc.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword", { value: 1 }, { value: respmacontstfc.senha});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxy", { value: 1 }, { value: respmacontstfc.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxyPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServer", { value: 1 }, { value: respmacontstfc.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer", { value: 1 }, { value: respmacontstfc.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryOutboundProxy", { value: 1 }, { value: respmacontstfc.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryOutboundProxyPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryProxyServer", { value: 1 }, { value: respmacontstfc.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryProxyServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.Enable", { value: 1 }, { value: true});
-            declare("Tags." + respmacontstfc.numero, null, { value: true });
-            commit()
-        }
-        
-    } else {
-        let respmacont = ext("getMacont", "getMacont", maclan.toUpperCase())
-        log(respmacont)
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }, { value: respmacont.numero});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword", { value: 1 }, { value: respmacont.senha});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxy", { value: 1 }, { value: "186.195.15.138"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.OutboundProxyPort", { value: 1 }, { value: "5060"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServer", { value: 1 }, { value: "186.195.15.138"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.ProxyServerPort", { value: 1 }, { value: "5060"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer", { value: 1 }, { value: respmacont.dominio});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServerPort", { value: 1 }, { value: "5060"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryOutboundProxy", { value: 1 }, { value: "186.195.15.138"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryOutboundProxyPort", { value: 1 }, { value: "5060"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryProxyServer", { value: 1 }, { value: "186.195.15.138"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.X_HW_SecondaryProxyServerPort", { value: 1 }, { value: "5060"});
-        declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.Enable", { value: 1 }, { value: true});
-        declare("Tags." + respmacont.numero, null, { value: true });
-        commit()
-       
-    }
-}
-
-function configontzte (para_mac_lan){
-    let maclan = para_mac_lan;
-    let respmacontstfc = ext("getMacontstfc", "getMacontstfc", maclan.toUpperCase());
-    if (respmacontstfc.status != 404) {
-        if(respmacontstfc.numero == null){
-            let respmacont = ext("getMacont", "getMacont", maclan.toUpperCase())
-            log(respmacont.numero)
-            let senha = "null"
-            if (respmacont.dominio == "vivasim.redepabx.com.br"){
-            	senha = "W3X4Ezv6Ae35oJZnP"
-            }else if(respmacont.dominio == "flordosertao.redepabx.com.br"){
-            	senha = "9T^Z!G*$6pDpE*hjvEAy"
-            }else if(respmacont.dominio == "ipamarelo.redepabx.com.br"){
-            	senha = "IpAm#2023@tux"
-            }
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }, { value: respmacont.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.URI", { value: 1 }, { value: respmacont.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword", { value: 1 }, { value: senha});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer", { value: 1 }, { value: respmacont.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Firewall.X_ZTE-COM_ServiceControl.IPV4ServiceControl.1.ServiceType", { value: 1 }, { value: "HTTP,PING"});
-            declare("Tags." + respmacont.numero, null, { value: true });
-            declare("Tags." + respmacont.dominio, null, { value: true });
-            commit()
-        }else{
-            log(respmacontstfc.numero)
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }, { value: respmacontstfc.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.URI", { value: 1 }, { value: respmacontstfc.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword", { value: 1 }, { value: "W3X4Ezv6Ae35oJZnP"});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer", { value: 1 }, { value: respmacontstfc.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Firewall.X_ZTE-COM_ServiceControl.IPV4ServiceControl.1.ServiceType", { value: 1 }, { value: "HTTP,PING"});
-            declare("Tags." + respmacontstfc.numero, null, { value: true });
-            declare("Tags." + respmacontstfc.dominio, null, { value: true });
-            commit()
-        }
-        
-    } else {
-        let respmacont = ext("getMacont", "getMacont", maclan.toUpperCase())
-        log(respmacont)
-            let senha = "null"
-            if (respmacont.dominio == "vivasim.redepabx.com.br"){
-            	senha = "W3X4Ezv6Ae35oJZnP"
-            }else if(respmacont.dominio == "flordosertao.redepabx.com.br"){
-            	senha = "9T^Z!G*$6pDpE*hjvEAy"
-            }else if(respmacont.dominio == "ipamarelo.redepabx.com.br"){
-            	senha = "IpAm#2023@tux"
-            }
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthUserName", { value: 1 }, { value: respmacont.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.URI", { value: 1 }, { value: respmacont.numero});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.Line.1.SIP.AuthPassword", { value: 1 }, { value: senha});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServer", { value: 1 }, { value: respmacont.dominio});
-            declare("InternetGatewayDevice.Services.VoiceService.1.VoiceProfile.1.SIP.RegistrarServerPort", { value: 1 }, { value: "5060"});
-            declare("InternetGatewayDevice.Firewall.X_ZTE-COM_ServiceControl.IPV4ServiceControl.1.ServiceType", { value: 1 }, { value: "HTTP,PING"});
-            declare("Tags." + respmacont.numero, null, { value: true });
-            declare("Tags." + respmacont.dominio, null, { value: true });
-        commit()
-       
-    }
-}
