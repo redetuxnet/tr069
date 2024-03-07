@@ -1,4 +1,3 @@
-# ATENÇÃO PARA OBTER O CÓDIGO FONTE ATUALIZADO - CONTATE-NOS
 # Modulo de integração GenieACS + (Hubsoft)
 Esse modulo de integração é integrada com o ERP Hubsoft, na qual contém a funcionalidade de auto configuração das CPE (roteador ou onu).</br>
 A auto configuração é feita em dois casos:
