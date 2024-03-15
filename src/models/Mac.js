@@ -46,12 +46,12 @@ exports.get = async function getMac(mac) {
         console.log("O.S nao sendo executada")
         return []
     }else{
-        let result = {
+        let result = [{
             mac_address: mac_address,
             login: os_response[0].login,
             password: os_response[0].password,
             nome_razaosocial: os_response[0].nome_razaosocial
-        }
+        }]
         console.log(result)
         return result
     }
