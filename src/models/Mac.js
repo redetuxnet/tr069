@@ -8,6 +8,8 @@ exports.get = async function getMac(mac) {
     LEFT JOIN "public"."movimento_estoque_produto" AS "movimento_estoque_produto - id_movimento_estoque_produto" ON "public"."movimento_estoque_produto_item"."id_movimento_estoque_produto" = "movimento_estoque_produto - id_movimento_estoque_produto"."id_movimento_estoque_produto" LEFT JOIN "public"."movimento_estoque" AS "movimento_estoque - id_movimento_estoque" ON "movimento_estoque_produto - id_movimento_estoque_produto"."id_movimento_estoque" = "movimento_estoque - id_movimento_estoque"."id_movimento_estoque" LEFT JOIN "public"."produto_item" AS "produto_item - id_produto_item" ON "public"."movimento_estoque_produto_item"."id_produto_item" = "produto_item - id_produto_item"."id_produto_item"
     WHERE ("movimento_estoque_produto - id_movimento_estoque_produto"."tipo_utilizacao" = 'cliente_servico')
    AND ("movimento_estoque - id_movimento_estoque"."tipo" = 'saida') AND ("produto_item - id_produto_item"."mac_address" = '${mac}') AND ("movimento_estoque - id_movimento_estoque"."vinculo_destino" = 'users')
+   order by "movimento_estoque - id_movimento_estoque"."data_movimento" desc
+   limit 1
 `
     let produto_item_response = await conectbd.bdhub(produto_item)
         .then(data => {
