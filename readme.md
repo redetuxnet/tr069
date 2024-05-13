@@ -37,6 +37,7 @@ Clone o projeto
 Edite o arquivo .env</br>
 
     cd /opt/tr069/src
+    cp .env_example .env
     vi .env
 
 Dentro do arquivo se encontra as variáveis de ambiente da api</br>
