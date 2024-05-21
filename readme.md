@@ -133,7 +133,7 @@ O primeiro que iremos editar é o provision default
 O segundo que iremos editar é o provision inform
 
     ## Copie as informações que está no projeto dentro da pasta 
-    /opt/tr069/GenieACS/provisions/inform
+    /opt/tr069/GenieACS/provisions/inform.js
     ## Dentro do GenieACS navegue até admin -> provisions
     Clique em show no provision com o nome inform e apague tudo que está dentro e cole o contéudo copiado do arquivo default do projeto
 
