@@ -4,7 +4,7 @@ function cliente(args, callback){
    //URL da API
    let urlbase = "http://localhost:3001"
    //Token gerado na api
-   let token = "Z94k8opK3mlJhDLaWVN7Qhd6KPdYB087BeCty6teQyKLnK49BP"
+   let token = ""
     http
   .get(`${urlbase}/api/mac/${token}/macwan/${args[0]}`, (res) => {
       if (res.statusCode !== 200)
